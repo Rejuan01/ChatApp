@@ -9,6 +9,7 @@ class ChatCardController extends GetxController {
   final UserModel me = Get.find<HomeController>().currentUser;
   final UserModel receiver;
   final lastMessage = ''.obs;
+  final lastMessageTime = ''.obs;
   final lastMessageSent = false.obs; //last message is sent or received
   final isReceiverActive = false.obs;
 
@@ -24,6 +25,7 @@ class ChatCardController extends GetxController {
       if (event.docs.isNotEmpty) {
         final messageModel = MessageModel.fromJson(event.docs[0].data());
         lastMessage.value = messageModel.message;
+        lastMessageTime.value = messageModel.sent;
       }
     });
   }

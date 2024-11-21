@@ -31,7 +31,25 @@ class Utils {
   }
 
   static getTime(String time) {
+    // for every chat
     DateTime dateTime = DateTime.fromMillisecondsSinceEpoch(int.parse(time));
     return DateFormat.jm().format(dateTime).toString(); // 12:30 AM
+  }
+
+  static lstMessageTime(String time) {
+    DateTime dateTime = DateTime.fromMillisecondsSinceEpoch(int.parse(time));
+    DateTime now = DateTime.now();
+
+    if (now.day == dateTime.day &&
+        now.month == dateTime.month &&
+        now.year == dateTime.year) {
+      return DateFormat.jm().format(dateTime).toString(); // 12:30 AM
+    } else if (now.subtract(const Duration(days: 1)).day == dateTime.day &&
+        now.month == dateTime.month &&
+        now.year == dateTime.year) {
+      return 'Yesterday';
+    } else {
+      return DateFormat.yMd().format(dateTime).toString(); // MM/DD/YYYY
+    }
   }
 }
