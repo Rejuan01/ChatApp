@@ -12,21 +12,37 @@ Widget chatInput() {
           child: Row(
             children: [
               IconButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    if (controller.focusNode.value.hasFocus) {
+                      controller.focusNode.value.unfocus(); //close keyboard
+                      Future.delayed(const Duration(milliseconds: 300), () {
+                        controller
+                            .emojiStateChange(); // Open or close emoji panel
+                      });
+                    } else {
+                      controller.emojiStateChange();
+                    }
+                    print(controller.showEmoji.value);
+                  },
                   icon: Icon(
                     Icons.emoji_emotions,
                     size: 26,
                   )),
               Expanded(
-                  child: TextField(
-                controller: controller.textController.value,
-                keyboardType: TextInputType.multiline,
-                maxLines: null,
-                decoration: InputDecoration(
-                    border: InputBorder.none,
-                    hintText: 'Say something...',
-                    hintStyle: TextStyle()),
-              )),
+                  child: Obx(() => TextField(
+                        controller: controller.textController.value,
+                        focusNode: controller.focusNode.value,
+                        keyboardType: TextInputType.multiline,
+                        maxLines: null,
+                        decoration: InputDecoration(
+                            border: InputBorder.none,
+                            hintText: 'Say something...',
+                            hintStyle: TextStyle()),
+                        onTap: () {
+                          controller.showEmoji.value =
+                              false; // Don't show emoji if textEditingController is in focus
+                        },
+                      ))),
               IconButton(
                   onPressed: () {},
                   icon: Icon(

@@ -11,7 +11,9 @@ Widget customAppBar(UserModel userModel) {
       child: Row(
         children: [
           IconButton(
-            onPressed: () {},
+            onPressed: () {
+              Get.back();
+            },
             icon: const Icon(
               Icons.arrow_back,
               color: Colors.black54,

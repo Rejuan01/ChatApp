@@ -19,7 +19,7 @@ class HomeScreen extends StatelessWidget {
         onTap: () => FocusScope.of(context).unfocus(),
         child: PopScope(
           canPop: !controller.isSearching.value,
-          onPopInvoked: (didPop) {
+          onPopInvoked: (didPop) async {
             if (!didPop) {
               controller.searchStateChange();
             }
@@ -42,9 +42,10 @@ class HomeScreen extends StatelessWidget {
                               const TextStyle(fontSize: 16, letterSpacing: 1),
                           onChanged: (value) {
                             controller.searchList.clear();
-                            // if (value.isEmpty) {
-                            //   controller.searchList = controller.userList;
-                            // }
+                            if (value.isEmpty) {
+                              controller.isSearching.value = true;
+                              controller.searchList.value = [];
+                            }
                             print('Inside 1st stage.......... $value');
                             for (var i in controller.userList) {
                               print('Inside second stage..................');

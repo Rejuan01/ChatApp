@@ -12,12 +12,18 @@ class ChatController extends GetxController {
   final UserModel receiver;
   final UserModel currentUser = Get.find<HomeController>().currentUser;
   final textController = TextEditingController().obs;
+  final focusNode = FocusNode().obs;
   RxList<MessageModel> messages = <MessageModel>[].obs;
+  final showEmoji = false.obs;
 
   @override
   void onInit() {
     super.onInit();
     _setMessageList();
+  }
+
+  void emojiStateChange() {
+    showEmoji.value = !showEmoji.value;
   }
 
   _setMessageList() {
